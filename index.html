@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Mamaa ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  text-align: center;
+  background: url('background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 0;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  background: rgba(0,0,0,0.35);
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 720px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3em;
+  margin-bottom: 10px;
+}
+
+#media-container img,
+#media-container video {
+  max-width: 100%;
+  max-height: 380px;
+  border-radius: 15px;
+  opacity: 0;
+  transition: opacity 2s;
+  margin: 20px 0;
+}
+
+.message {
+  font-size: 1.2em;
+  line-height: 1.7;
+  margin: 18px 0;
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 25px;
+  background: #ff5f6d;
+  color: white;
+  cursor: pointer;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 1em;
+}
+
+.floating-heart {
+  position: fixed;
+  bottom: -10px;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.8;
+  z-index: 2;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-120vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<audio id="birthday-audio" loop>
+  <source src="birthday-music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <div class="card">
+    <div style="font-size:3em;">❤️</div>
+    <h1>Happy Birthday, Mamaa 🎉</h1>
+
+    <!-- Media -->
+    <div id="media-container"></div>
+
+    <!-- Messages -->
+    <p class="message">Today isn’t just your birthday — it’s the day the world was blessed with you.</p>
+    <p class="message">Even though we can’t celebrate together today, my heart is right there with you at home.</p>
+    <p class="message">Thank you for loving me, for choosing me, and for being my safe place.</p>
+    <p class="message">I pray this new year brings you peace, joy, and everything your heart desires.</p>
+    <p class="message"><strong>I love you more than words can explain 💕</strong></p>
+
+    <button onclick="playMusic()">Tap for a surprise 💌</button>
+
+    <footer>
+      Forever yours,<br><strong>Sta ❤️</strong>
+    </footer>
+  </div>
+</div>
+
+<script>
+// Play music
+function playMusic() {
+  document.getElementById("birthday-audio").play();
+}
+
+// Floating hearts
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "floating-heart";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.innerHTML = "❤️";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 500);
+
+// Media sequence (3 photos + 3 videos)
+const media = [
+  { type: "image", src: "mamaa1.jpg" },
+  { type: "video", src: "video1.mp4" },
+  { type: "image", src: "mamaa2.jpg" },
+  { type: "video", src: "video2.mp4" },
+  { type: "image", src: "mamaa3.jpg" },
+  { type: "video", src: "video3.mp4" }
+];
+
+const container = document.getElementById("media-container");
+let mediaIndex = 0;
+
+function showMedia() {
+  container.innerHTML = "";
+  let el;
+
+  if (media[mediaIndex].type === "image") {
+    el = document.createElement("img");
+    el.src = media[mediaIndex].src;
+  } else {
+    el = document.createElement("video");
+    el.src = media[mediaIndex].src;
+    el.autoplay = true;
+    el.muted = true;
+    el.controls = false;
+  }
+
+  container.appendChild(el);
+  setTimeout(() => el.style.opacity = 1, 100);
+  mediaIndex = (mediaIndex + 1) % media.length;
+}
+
+showMedia();
+setInterval(showMedia, 20000); // every 20 sec
+
+// Messages fade-in (~2 minutes)
+const messages = document.querySelectorAll(".message");
+messages.forEach((msg, i) => {
+  setTimeout(() => msg.style.opacity = 1, i * 20000);
+});
+</script>
+
+</body>
+</html>
